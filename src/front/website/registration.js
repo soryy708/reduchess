@@ -1,4 +1,4 @@
-import apiCall from './apiCall';
+import apiCall from '../common/apiCall';
 
 const registrationErrors = {
     'validation/password': 'Password is invalid',

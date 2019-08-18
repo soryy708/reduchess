@@ -21,7 +21,21 @@ gulp.task('build-front/javascript/registration', () => {
         .pipe(gulp.dest('../build/front/website'));
 });
 
-gulp.task('build-front/javascript', gulp.parallel('build-front/javascript/registration'));
+gulp.task('build-front/javascript/game', () => {
+    const browserified = browserify({
+        entries: ['../src/front/game/game.js'],
+    }).transform(babelify.configure(babelConfig));
+
+    return browserified.bundle()
+        .pipe(vinylSource('app.js'))
+        .pipe(vinylBuffer())
+        .pipe(sourceMaps.init({loadMaps: true}))
+        .pipe(uglify())
+        .pipe(sourceMaps.write('.'))
+        .pipe(gulp.dest('../build/front/game'));
+});
+
+gulp.task('build-front/javascript', gulp.parallel('build-front/javascript/registration', 'build-front/javascript/game'));
 
 gulp.task('watch-front/javascript', () => {
     return gulp.watch('../src/front/**/*.js', gulp.series('build-front/javascript'));
