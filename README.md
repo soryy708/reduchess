@@ -1,22 +1,6 @@
-Use this as a template for your repository!
+# ReduChess
 
-Do with this template anything you wish - license is MIT License.
-
-Features:
-* DevOps scripts via [_gulp_](https://www.npmjs.com/package/gulp) and [_batch_](https://en.wikipedia.org/wiki/Batch_file)
-* Tests via [_mocha_](https://mochajs.org/) & [_supertest_](https://www.npmjs.com/package/supertest)
-* Plays a sound when a test fails
-* API is integrated with relational (SQL) database via [Sequelize ORM](http://docs.sequelizejs.com/)
-* Authentication is already done
-* Logs errors in to database
-* Pre-configured linter
-* Monorepo structure
-
-# Prerequisites
-
-* [NodeJS](https://nodejs.org/en/) LTS
-* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension for VSCode
-* Don't forget to `npm install`
+Transaction-based Chess online game in NodeJS.
 
 # How to build / run
 
