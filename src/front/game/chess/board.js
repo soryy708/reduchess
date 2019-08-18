@@ -46,9 +46,44 @@ function create() {
     return chessBoard;
 }
 
+/**
+ * 
+ * @param {*} board 
+ * @param {*} x Number for index (left to right) starting at 0, or string from 'a' to 'h' (left to right)
+ * @param {*} y Number for index (top to bottom) starting at 0, or string from '1' to '8' (bottom to top)
+ */
+function getTile(board, x, y) {
+    function isString(o) {
+        return typeof o === 'string' || o instanceof String;
+    }
+
+    function strToAscii(str) {
+        str = str.trim().toLowerCase();
+        if (str.length < 1) {
+            return;
+        }
+        return str.charCodeAt(0);
+    }
+
+    if (isString(x)) {
+        x = strToAscii(x) - 'a'.charCodeAt(0);
+    }
+    if (isString(y)) {
+        y = strToAscii(y) - '0'.charCodeAt(0);
+        y = chess_board_height - y;
+    }
+
+    const tiles = board.getElementsByClassName('chess-board-tile');
+    const desired_index = x + (y * chess_board_width);
+    if (desired_index >= 0 && desired_index < tiles.length) {
+        return tiles[desired_index];
+    }
+}
+
 export default {
     private: {
         deduceTileColor,
     },
     create,
+    getTile,
 };
