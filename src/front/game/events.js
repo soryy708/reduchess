@@ -36,9 +36,11 @@ const tileClick = (function() {
             currentState = null;
             break;
         default:
-            selectedTile = {x, y};
-            game.markSelected(x, y);
-            currentState = 'selected';
+            if (chessRepresentation.isPiece(reduceBoardState()[y][x])) {
+                selectedTile = {x, y};
+                game.markSelected(x, y);
+                currentState = 'selected';
+            }
         }
     };
 })();
