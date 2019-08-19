@@ -1,0 +1,40 @@
+html, body {
+    background-color: #000;
+}
+
+.chess-board-coordinate {
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.chess-board-tile-white {
+    background-color: #bbb;
+}
+
+.chess-board-tile-white.chess-board-tile-highlighted {
+    background-color: #888;
+}
+
+.chess-board-tile-white.chess-board-tile-selected {
+    background-color: #999;
+}
+
+.chess-board-tile-black {
+    background-color: #333;
+}
+
+.chess-board-tile-black.chess-board-tile-highlighted {
+    background-color: #555;
+}
+
+.chess-board-tile-black.chess-board-tile-selected {
+    background-color: #444;
+}
+
+.chess-piece-white {
+    color: #fff;
+}
+
+.chess-piece-black {
+    color: #000;
+}
