@@ -70,7 +70,15 @@ html, body {
     background-color: #eee;
 }
 
-.chess-board-tile-white.chess-board-tile-selected {
+.chess-board-tile-white.chess-board-tile-selected::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
     background-color: rgb(209, 233, 102);
 }
 
@@ -88,7 +96,15 @@ html, body {
     box-shadow: 0 0 12px #000;
 }
 
-.chess-board-tile-black.chess-board-tile-selected {
+.chess-board-tile-black.chess-board-tile-selected::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
     background-color: rgb(78, 95, 16);
 }
 
