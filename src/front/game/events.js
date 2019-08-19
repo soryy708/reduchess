@@ -1,9 +1,11 @@
 import game from './game';
 import chessRepresentation from './chess/representation';
 
+// TODO: Option to get algebraic notation
 const moves = [];
 
 function reduceBoardState() {
+    // TODO: Use memoization optimization
     const boardState = chessRepresentation.getInitial();
     for (const move of moves) {
         boardState[move.to.y][move.to.x] = boardState[move.from.y][move.from.x];
