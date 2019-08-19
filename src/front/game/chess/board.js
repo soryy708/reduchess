@@ -27,6 +27,11 @@ function create() {
     chessBoard.className = 'chess-board';
 
     for (let tile_i = 0; tile_i < chess_board_height; ++tile_i) {
+        const coordinate = document.createElement('div');
+        coordinate.className = 'chess-board-coordinate';
+        coordinate.innerText = 8 - tile_i;
+        chessBoard.appendChild(coordinate);
+
         for (let tile_j = 0; tile_j < chess_board_width; ++tile_j) {
             const tile = chessBoardTile.create(deduceTileColor(tile_j, tile_i));
             tile.addEventListener('click', () => {
@@ -35,13 +40,22 @@ function create() {
             chessBoard.appendChild(tile);
         }
     }
+    const emptyCorner = document.createElement('div');
+    emptyCorner.className = 'chess-board-coordinate';
+    chessBoard.appendChild(emptyCorner);
+    for (let tile_j = 0; tile_j < chess_board_width; ++tile_j) {
+        const coordinate = document.createElement('div');
+        coordinate.className = 'chess-board-coordinate';
+        coordinate.innerText = String.fromCharCode('a'.charCodeAt(0) + tile_j);
+        chessBoard.appendChild(coordinate);
+    }
 
     function scaleChessBoard(e) {
         const playAreaMargin = 32;
         const playAreaWidth = window.innerWidth - playAreaMargin;
         const playAreaHeight = window.innerHeight - playAreaMargin;
         const chessBoardSize = Math.min(playAreaWidth, playAreaHeight);
-        const chessBoardTileSize = chessBoardSize / chess_board_width;
+        const chessBoardTileSize = chessBoardSize / (chess_board_width + 1);
         chessBoard.style.fontSize = `${chessBoardTileSize}px`;
     }
     window.addEventListener('resize', scaleChessBoard);
