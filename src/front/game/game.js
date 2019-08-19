@@ -1,37 +1,53 @@
 import chessBoard from './chess/board';
 import chessPiece from './chess/piece';
+import chessRepresentation from './chess/representation';
 
-function initialize() {
-    const board = chessBoard.create();
-    document.body.appendChild(board);
+let board = null;
 
-    for (let i = 0; i < 8; ++i) {
-        const whitePlayerTile = chessBoard.getTile(board, i, '2');
-        const blackPlayerTile = chessBoard.getTile(board, i, '7');
-        whitePlayerTile.appendChild(chessPiece.create('pawn', 'white'));
-        blackPlayerTile.appendChild(chessPiece.create('pawn', 'black'));
+function updateView(boardState) {
+    if (!boardState) {
+        boardState = chessRepresentation.getInitial();
     }
 
-    chessBoard.getTile(board, 'a', '1').appendChild(chessPiece.create('rook', 'white'));
-    chessBoard.getTile(board, 'h', '1').appendChild(chessPiece.create('rook', 'white'));
-    chessBoard.getTile(board, 'a', '8').appendChild(chessPiece.create('rook', 'black'));
-    chessBoard.getTile(board, 'h', '8').appendChild(chessPiece.create('rook', 'black'));
+    for (let y = 0; y < 8; ++y) {
+        for (let x = 0; x < 8; ++x) {
+            const tile = chessBoard.getTile(board, x, y);
+            const tileState = boardState[y][x];
 
-    chessBoard.getTile(board, 'b', '1').appendChild(chessPiece.create('knight', 'white'));
-    chessBoard.getTile(board, 'g', '1').appendChild(chessPiece.create('knight', 'white'));
-    chessBoard.getTile(board, 'b', '8').appendChild(chessPiece.create('knight', 'black'));
-    chessBoard.getTile(board, 'g', '8').appendChild(chessPiece.create('knight', 'black'));
+            while (tile.firstChild) {
+                tile.removeChild(tile.firstChild);
+            }
+            if (chessRepresentation.isPiece(tileState)) {
+                const pieceType = chessRepresentation.getType(tileState);
+                const pieceColor = chessRepresentation.getColor(tileState);
+                tile.appendChild(chessPiece.create(pieceType, pieceColor));
+            }
+        }
+    }
+}
 
-    chessBoard.getTile(board, 'c', '1').appendChild(chessPiece.create('bishop', 'white'));
-    chessBoard.getTile(board, 'f', '1').appendChild(chessPiece.create('bishop', 'white'));
-    chessBoard.getTile(board, 'c', '8').appendChild(chessPiece.create('bishop', 'black'));
-    chessBoard.getTile(board, 'f', '8').appendChild(chessPiece.create('bishop', 'black'));
+function markSelected(x, y) {
+    const tile = chessBoard.getTile(board, x, y);
+    tile.classList.add('chess-board-tile-selected');
+}
 
-    chessBoard.getTile(board, 'd', '1').appendChild(chessPiece.create('queen', 'white'));
-    chessBoard.getTile(board, 'd', '8').appendChild(chessPiece.create('queen', 'black'));
-    
-    chessBoard.getTile(board, 'e', '1').appendChild(chessPiece.create('king', 'white'));
-    chessBoard.getTile(board, 'e', '8').appendChild(chessPiece.create('king', 'black'));
+function clearSelected() {
+    const tiles = document.getElementsByClassName('chess-board-tile-selected');
+    for (const tile of tiles) {
+        tile.classList.remove('chess-board-tile-selected');
+    }
+}
+
+function initialize() {
+    board = chessBoard.create();
+    document.body.appendChild(board);
+    updateView();
 }
 
 initialize();
+
+export default {
+    updateView,
+    markSelected,
+    clearSelected,
+};

@@ -1,4 +1,5 @@
 import chessBoardTile from './boardTile';
+import events from '../events';
 
 const chess_board_width = 8;
 const chess_board_height = 8;
@@ -28,6 +29,9 @@ function create() {
     for (let tile_i = 0; tile_i < chess_board_height; ++tile_i) {
         for (let tile_j = 0; tile_j < chess_board_width; ++tile_j) {
             const tile = chessBoardTile.create(deduceTileColor(tile_j, tile_i));
+            tile.addEventListener('click', () => {
+                events.tileClick(tile_j, tile_i);
+            });
             chessBoard.appendChild(tile);
         }
     }
