@@ -1,29 +1,27 @@
 import view from '../view';
+import model from '../model';
 import chessBoardModel from '../model/board';
 import chessMovesModel from '../model/moves';
-
-function chessMove(from, to) {
-    chessMovesModel.push(from, to);
-    view.update();
-}
 
 const onTileClick = (function() {
     let currentState = null;
     let selectedTile = null;
 
     return function(x, y) {
+        const boardState = chessBoardModel.reduceBoardState(chessMovesModel.getAll());
+
         switch (currentState) {
         case 'selected':
             if (!(selectedTile.x == x && selectedTile.y == y)) {
-                chessMove(selectedTile, {x, y});
+                chessMovesModel.push(selectedTile, {x, y});
             }
-            view.clearSelected();
+            chessBoardModel.clearSelectedTiles();
             currentState = null;
             break;
         default:
-            if (chessBoardModel.isPiece(chessBoardModel.reduceBoardState()[y][x])) {
+            if (boardState[y][x].isPiece()) {
                 selectedTile = {x, y};
-                view.markSelected(x, y);
+                chessBoardModel.selectTile(x, y);
                 currentState = 'selected';
             }
         }
@@ -31,3 +29,4 @@ const onTileClick = (function() {
 })();
 
 view.initialize(onTileClick);
+model.initialize();

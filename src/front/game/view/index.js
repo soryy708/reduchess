@@ -1,12 +1,10 @@
 import chessBoard from './chess/board';
 import chessPiece from './chess/piece';
-import chessBoardModel from '../model/board';
 import modelConst from '../model/const';
 
 let board = null;
 
-function update() {
-    const boardState = chessBoardModel.reduceBoardState();
+function update(boardState) {
     for (let y = 0; y < modelConst.chess_board_height; ++y) {
         for (let x = 0; x < modelConst.chess_board_width; ++x) {
             const tile = chessBoard.getTile(board, x, y);
@@ -15,10 +13,8 @@ function update() {
             while (tile.firstChild) {
                 tile.removeChild(tile.firstChild);
             }
-            if (chessBoardModel.isPiece(tileState)) {
-                const pieceType = chessBoardModel.getType(tileState);
-                const pieceColor = chessBoardModel.getColor(tileState);
-                tile.appendChild(chessPiece.create(pieceType, pieceColor));
+            if (tileState.isPiece()) {
+                tile.appendChild(chessPiece.create(tileState.getType(), tileState.getColor()));
             }
         }
     }
@@ -28,7 +24,6 @@ function initialize(onTileClick) {
     if (!board) {
         board = chessBoard.create(onTileClick);
         document.body.appendChild(board);
-        update();
     }
 }
 

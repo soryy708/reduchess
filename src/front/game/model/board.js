@@ -1,4 +1,4 @@
-import movesModel from './moves';
+import view from '../view';
 
 const initialRepresentation = [
     ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
@@ -10,10 +10,6 @@ const initialRepresentation = [
     ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
     ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'],
 ];
-
-function getInitial() {
-    return JSON.parse(JSON.stringify(initialRepresentation));
-}
 
 function isPiece(piece) {
     return piece !== '';
@@ -53,22 +49,50 @@ function getType(piece) {
     }
 }
 
-function reduceBoardState() {
-    // TODO: Use memoization optimization
-    const boardState = getInitial();
-    movesModel.forEach((move) => {
-        boardState[move.to.y][move.to.x] = boardState[move.from.y][move.from.x];
-        boardState[move.from.y][move.from.x] = '';
-        // TODO: Swapping king with rook
-    });
-    return boardState;
+function reduceBoardState(moves) {
+    function internalRepresentationToPublicInterface(boardState) {
+        return boardState.map(pieceArray => pieceArray.map((piece) => {
+            return {
+                isPiece: () => isPiece(piece),
+                isWhite: () => isWhite(piece),
+                isBlack: () => isBlack(piece),
+                getColor: () => getColor(piece),
+                getType: () => getType(piece),
+            };
+        }));
+    }
+
+    function reduceInternalRepresentation(moves) {
+        // TODO: Use memoization optimization
+        const boardState = JSON.parse(JSON.stringify(initialRepresentation));
+        moves.forEach((move) => {
+            boardState[move.to.y][move.to.x] = boardState[move.from.y][move.from.x];
+            boardState[move.from.y][move.from.x] = '';
+            // TODO: Swapping king with rook
+        });
+        return boardState;
+    }
+
+    return internalRepresentationToPublicInterface(reduceInternalRepresentation(moves));
+}
+
+function selectTile(x, y) {
+    view.markSelected(x, y);
+}
+
+function clearSelectedTiles() {
+    view.clearSelected();
 }
 
 export default {
-    isPiece,
-    isWhite,
-    isBlack,
-    getColor,
-    getType,
+    private: {
+        isPiece,
+        isWhite,
+        isBlack,
+        getColor,
+        getType,
+    },
     reduceBoardState,
+    selectTile,
+    clearSelectedTiles,
 };
