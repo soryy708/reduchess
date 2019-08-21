@@ -1,3 +1,5 @@
+import movesModel from './moves';
+
 const initialRepresentation = [
     ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
     ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -51,11 +53,22 @@ function getType(piece) {
     }
 }
 
+function reduceBoardState() {
+    // TODO: Use memoization optimization
+    const boardState = getInitial();
+    movesModel.forEach((move) => {
+        boardState[move.to.y][move.to.x] = boardState[move.from.y][move.from.x];
+        boardState[move.from.y][move.from.x] = '';
+        // TODO: Swapping king with rook
+    });
+    return boardState;
+}
+
 export default {
-    getInitial,
     isPiece,
     isWhite,
     isBlack,
     getColor,
     getType,
+    reduceBoardState,
 };

@@ -1,8 +1,5 @@
 import chessBoardTile from './boardTile';
-import events from '../events';
-
-const chess_board_width = 8;
-const chess_board_height = 8;
+import modelConst from '../../model/const';
 
 /**
  * Deduce the color a tile needs to be based on its (x,y) coordinates on a chess board
@@ -11,7 +8,7 @@ const chess_board_height = 8;
  * @returns {String} 'black' or 'white', or `undefined` if parameters are invalid
  */
 function deduceTileColor(x, y) {
-    if (isNaN(x) || isNaN(y) || x < 0 || y < 0 || x >= chess_board_width || y >= chess_board_height) {
+    if (isNaN(x) || isNaN(y) || x < 0 || y < 0 || x >= modelConst.chess_board_width || y >= modelConst.chess_board_height) {
         return undefined;
     }
 
@@ -22,20 +19,20 @@ function deduceTileColor(x, y) {
     return shouldBeBlack ? 'black' : 'white';
 }
 
-function create() {
+function create(onTileClick) {
     const chessBoard = document.createElement('div');
     chessBoard.className = 'chess-board';
 
-    for (let tile_i = 0; tile_i < chess_board_height; ++tile_i) {
+    for (let tile_i = 0; tile_i < modelConst.chess_board_height; ++tile_i) {
         const coordinate = document.createElement('div');
         coordinate.className = 'chess-board-coordinate';
-        coordinate.innerText = 8 - tile_i;
+        coordinate.innerText = modelConst.chess_board_height - tile_i;
         chessBoard.appendChild(coordinate);
 
-        for (let tile_j = 0; tile_j < chess_board_width; ++tile_j) {
+        for (let tile_j = 0; tile_j < modelConst.chess_board_width; ++tile_j) {
             const tile = chessBoardTile.create(deduceTileColor(tile_j, tile_i));
             tile.addEventListener('click', () => {
-                events.tileClick(tile_j, tile_i);
+                onTileClick(tile_j, tile_i);
             });
             chessBoard.appendChild(tile);
         }
@@ -43,19 +40,19 @@ function create() {
     const emptyCorner = document.createElement('div');
     emptyCorner.className = 'chess-board-coordinate';
     chessBoard.appendChild(emptyCorner);
-    for (let tile_j = 0; tile_j < chess_board_width; ++tile_j) {
+    for (let tile_j = 0; tile_j < modelConst.chess_board_width; ++tile_j) {
         const coordinate = document.createElement('div');
         coordinate.className = 'chess-board-coordinate';
         coordinate.innerText = String.fromCharCode('a'.charCodeAt(0) + tile_j);
         chessBoard.appendChild(coordinate);
     }
 
-    function scaleChessBoard(e) {
+    function scaleChessBoard() {
         const playAreaMargin = 32;
         const playAreaWidth = window.innerWidth - playAreaMargin;
         const playAreaHeight = window.innerHeight - playAreaMargin;
         const chessBoardSize = Math.min(playAreaWidth, playAreaHeight);
-        const chessBoardTileSize = chessBoardSize / (chess_board_width + 1);
+        const chessBoardTileSize = chessBoardSize / (modelConst.chess_board_width + 1);
         chessBoard.style.fontSize = `${chessBoardTileSize}px`;
     }
     window.addEventListener('resize', scaleChessBoard);
@@ -88,11 +85,11 @@ function getTile(board, x, y) {
     }
     if (isString(y)) {
         y = strToAscii(y) - '0'.charCodeAt(0);
-        y = chess_board_height - y;
+        y = modelConst.chess_board_height - y;
     }
 
     const tiles = board.getElementsByClassName('chess-board-tile');
-    const desired_index = x + (y * chess_board_width);
+    const desired_index = x + (y * modelConst.chess_board_width);
     if (desired_index >= 0 && desired_index < tiles.length) {
         return tiles[desired_index];
     }

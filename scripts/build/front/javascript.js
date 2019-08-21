@@ -23,7 +23,7 @@ gulp.task('build-front/javascript/registration', () => {
 
 gulp.task('build-front/javascript/game', () => {
     const browserified = browserify({
-        entries: ['../src/front/game/game.js'],
+        entries: ['../src/front/game/controller/index.js'],
     }).transform(babelify.configure(babelConfig));
 
     return browserified.bundle()
