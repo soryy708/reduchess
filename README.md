@@ -22,6 +22,16 @@ This builds everything & rebuilds if changes are detected, runs everything, and 
 
 # Conventions
 
+## Architecture
+
+### Front end
+
+The game follows the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) architecture.
+
+* [controller](https://github.com/soryy708/reduchess/tree/master/src/front/game/controller) handles user interaction. It updates the [model](https://github.com/soryy708/reduchess/tree/master/src/front/game/model).
+* [model](https://github.com/soryy708/reduchess/tree/master/src/front/game/model) handles state. It updates the [view]().
+* [view](https://github.com/soryy708/reduchess/tree/master/src/front/game/view) handles presentation. It controls HTML / CSS.
+
 ## Tests
 
 * All tests are in their own files, ending with `.test.js`
