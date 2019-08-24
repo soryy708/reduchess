@@ -68,7 +68,7 @@ function reduceBoardState(moves) {
         moves.forEach((move) => {
             boardState[move.to.y][move.to.x] = boardState[move.from.y][move.from.x];
             boardState[move.from.y][move.from.x] = '';
-            // TODO: Swapping king with rook
+            // TODO: Castling
         });
         return boardState;
     }
