@@ -6,17 +6,14 @@ export default class Knight extends AbstractPiece {
     }
 
     isValidMove(to) {
-        const movingPiece = this.boardState[this.y][this.x];
-        const eatenPiece = this.boardState[to.y][to.x];
-
         if (!super.isValidMove(to)) {
             return false;
         }
 
-        if (eatenPiece.isPiece()) {
-            // TODO
-        } else {
-            // TODO
+        if (!(
+            (Math.abs(to.x - this.x) === 1 && Math.abs(to.y - this.y) === 2) ||
+            (Math.abs(to.x - this.x) === 2 && Math.abs(to.y - this.y) === 1))) {
+            return false;
         }
 
         return true;
