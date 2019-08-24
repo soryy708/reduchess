@@ -33,7 +33,7 @@ function markSelected(x, y) {
 }
 
 function clearSelected() {
-    const tiles = document.getElementsByClassName('chess-board-tile-selected');
+    const tiles = Array.from(document.getElementsByClassName('chess-board-tile-selected'));
     for (const tile of tiles) {
         tile.classList.remove('chess-board-tile-selected');
     }
