@@ -6,18 +6,22 @@ export default class Queen extends AbstractPiece {
     }
 
     isValidMove(to) {
-        const movingPiece = this.boardState[this.y][this.x];
-        const eatenPiece = this.boardState[to.y][to.x];
+        const movementVector = {x: to.x - this.x, y: to.y - this.y};
 
         if (!super.isValidMove(to)) {
             return false;
         }
 
-        if (eatenPiece.isPiece()) {
-            // TODO
-        } else {
-            // TODO
+        // Can move in any direction
+        if (!(
+            (movementVector.x === 0 && movementVector.y !== 0) ||
+            (movementVector.x !== 0 && movementVector.y === 0) ||
+            Math.abs(movementVector.x) === Math.abs(movementVector.y)
+        )) {
+            return false;
         }
+
+        // TODO: Can not jump over pieces
 
         return true;
     }

@@ -6,18 +6,18 @@ export default class Bishop extends AbstractPiece {
     }
 
     isValidMove(to) {
-        const movingPiece = this.boardState[this.y][this.x];
-        const eatenPiece = this.boardState[to.y][to.x];
+        const movementVector = {x: to.x - this.x, y: to.y - this.y};
 
         if (!super.isValidMove(to)) {
             return false;
         }
 
-        if (eatenPiece.isPiece()) {
-            // TODO
-        } else {
-            // TODO
+        // Can only move diagonally
+        if (!(Math.abs(movementVector.x) === Math.abs(movementVector.y))) {
+            return false;
         }
+
+        // TODO: Can not jump over pieces
 
         return true;
     }
