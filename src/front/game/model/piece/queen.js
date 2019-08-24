@@ -21,7 +21,9 @@ export default class Queen extends AbstractPiece {
             return false;
         }
 
-        // TODO: Can not jump over pieces
+        if (!super.pathIsVacant(to)) {
+            return false;
+        }
 
         return true;
     }
