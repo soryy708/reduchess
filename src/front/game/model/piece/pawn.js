@@ -36,7 +36,7 @@ export default class Pawn extends AbstractPiece {
             }
         } else {
             // Can only move vertically
-            if (!movementVector.x === 0) {
+            if (movementVector.x !== 0) {
                 return false;
             }
 
