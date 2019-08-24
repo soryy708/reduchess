@@ -84,6 +84,14 @@ function clearSelectedTiles() {
     view.clearSelected();
 }
 
+function highlightTile(x, y) {
+    view.markHighlighted(x, y);
+}
+
+function clearHighlightedTiles() {
+    view.clearHighlighted();
+}
+
 export default {
     private: {
         isPiece,
@@ -95,4 +103,6 @@ export default {
     reduceBoardState,
     selectTile,
     clearSelectedTiles,
+    highlightTile,
+    clearHighlightedTiles,
 };

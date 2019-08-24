@@ -39,9 +39,23 @@ function clearSelected() {
     }
 }
 
+function markHighlighted(x, y) {
+    const tile = chessBoard.getTile(board, x, y);
+    tile.classList.add('chess-board-tile-highlighted');
+}
+
+function clearHighlighted() {
+    const tiles = Array.from(document.getElementsByClassName('chess-board-tile-highlighted'));
+    for (const tile of tiles) {
+        tile.classList.remove('chess-board-tile-highlighted');
+    }
+}
+
 export default {
     update,
     initialize,
     markSelected,
     clearSelected,
+    markHighlighted,
+    clearHighlighted,
 };
