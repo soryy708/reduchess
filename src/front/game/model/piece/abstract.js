@@ -1,4 +1,5 @@
 import modelConst from '../const';
+import movesModel from '../moves';
 
 export default class AbstractPiece {
     constructor(boardState, x, y) {
@@ -35,6 +36,11 @@ export default class AbstractPiece {
             if (eatenPiece.getColor() === movingPiece.getColor()) {
                 return false;
             }
+        }
+
+        // Can not move if it's not your turn
+        if ((this.isWhite() && !movesModel.isWhiteMove()) || (this.isBlack() && !movesModel.isBlackMove())) {
+            return false;
         }
 
         return true;

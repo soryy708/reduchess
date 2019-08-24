@@ -27,8 +27,18 @@ function getAll() {
     return JSON.parse(JSON.stringify(moves));
 }
 
+function isWhiteMove() {
+    return moves.length % 2 === 0;
+}
+
+function isBlackMove() {
+    return !isWhiteMove();
+}
+
 export default {
     empty,
     push,
     getAll,
+    isWhiteMove,
+    isBlackMove,
 };
