@@ -10,17 +10,17 @@ function fromBoardCell(boardState, x, y) {
     if (boardCell.isPiece()) {
         switch (boardCell.getType()) {
             case 'bishop':
-                return new bishopPiece(boardCell.getColor(), boardState, x, y);
+                return new bishopPiece(boardState, x, y);
             case 'king':
-                return new kingPiece(boardCell.getColor(), boardState, x, y);
+                return new kingPiece(boardState, x, y);
             case 'knight':
-                return new knightPiece(boardCell.getColor(), boardState, x, y);
+                return new knightPiece(boardState, x, y);
             case 'pawn':
-                return new pawnPiece(boardCell.getColor(), boardState, x, y);
+                return new pawnPiece(boardState, x, y);
             case 'queen':
-                return new queenPiece(boardCell.getColor(), boardState, x, y);
+                return new queenPiece(boardState, x, y);
             case 'rook':
-                return new rookPiece(boardCell.getColor(), boardState, x, y);
+                return new rookPiece(boardState, x, y);
         }
     }
 }

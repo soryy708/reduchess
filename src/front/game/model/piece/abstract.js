@@ -1,6 +1,6 @@
 export default class AbstractPiece {
-    constructor(color, boardState, x, y) {
-        this.color = color.toLowerCase();
+    constructor(boardState, x, y) {
+        this.color = boardState[y][x].getColor();
         this.boardState = boardState;
         this.x = x;
         this.y = y;

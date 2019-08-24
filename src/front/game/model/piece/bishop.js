@@ -1,8 +1,8 @@
 import AbstractPiece from './abstract';
 
 export default class Bishop extends AbstractPiece {
-    constructor(color, boardState, x, y) {
-        super(color, boardState, x, y);
+    constructor(boardState, x, y) {
+        super(boardState, x, y);
     }
 
     isValidMove(to) {
