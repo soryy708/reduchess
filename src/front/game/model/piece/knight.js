@@ -6,13 +6,16 @@ export default class Knight extends AbstractPiece {
     }
 
     isValidMove(to) {
+        const movementVector = {x: to.x - this.x, y: to.y - this.y};
+
         if (!super.isValidMove(to)) {
             return false;
         }
 
         if (!(
-            (Math.abs(to.x - this.x) === 1 && Math.abs(to.y - this.y) === 2) ||
-            (Math.abs(to.x - this.x) === 2 && Math.abs(to.y - this.y) === 1))) {
+            (Math.abs(movementVector.x) === 1 && Math.abs(movementVector.y) === 2) ||
+            (Math.abs(movementVector.x) === 2 && Math.abs(movementVector.y) === 1)
+        )) {
             return false;
         }
 
