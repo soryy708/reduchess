@@ -35,13 +35,24 @@ export default class Pawn extends AbstractPiece {
                 return false;
             }
         } else {
-            // Can roam only straight. If never moved before, can jump twice the distance
-            const maxDistance = wasNeverMoved(movingPiece, this.x, this.y) ? 2 : 1;
-            if (!(movementVector.x === 0 && Math.abs(movementVector.y) <= maxDistance && movementVector.y * validDirection > 0)) {
+            // Can only move vertically
+            if (!movementVector.x === 0) {
                 return false;
             }
-            // Can not jump over pieces
-            if (maxDistance === 2 && Math.abs(movementVector.y) === maxDistance && this.boardState[this.y + validDirection][this.x].isPiece()) {
+
+            if (Math.abs(movementVector.y) === 2) {
+                // Can not move 2 tiles if was moved before
+                if (!wasNeverMoved(movingPiece, this.x, this.y)) {
+                    return false;
+                }
+
+                // Can not jump over a piece
+                if (!super.pathIsVacant(to)) {
+                    return false;
+                }
+
+            } else if (Math.abs(movementVector.y) !== 1) {
+                // Can not move more than 2 tiles vertically
                 return false;
             }
         }
