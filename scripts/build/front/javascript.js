@@ -10,6 +10,7 @@ const babelConfig = require('../util/babelConfig').front;
 gulp.task('build-front/javascript/registration', () => {
     const browserified = browserify({
         entries: ['../src/front/website/registration.js'],
+        debug: true, // Enables sourcemaps
     }).transform(babelify.configure(babelConfig));
 
     return browserified.bundle()
@@ -24,6 +25,7 @@ gulp.task('build-front/javascript/registration', () => {
 gulp.task('build-front/javascript/game', () => {
     const browserified = browserify({
         entries: ['../src/front/game/controller/index.js'],
+        debug: true, // Enables sourcemaps
     }).transform(babelify.configure(babelConfig));
 
     return browserified.bundle()
